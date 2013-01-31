@@ -94,42 +94,8 @@ NSString *const FlickrAPIKey = @"8cd91e0edba8fa02b50c2eed388b9090";
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection{
-	NSLog(@"connection connectionDidFinishLoading");
-	[self parseDidEnd:data];
-}
 
-- (void)parseDidEnd:(NSMutableData *)data{
-	NSArray *response = PerformXMLXPathQuery((NSData *)data, @"//rsp/photos/photo", nil);
-	
-	for(int i=0; i<[response count]; i++){
-		NSArray *attr = [[response objectAtIndex:i] objectForKey:@"nodeAttributeArray"];
-		if(attr){
-			NSString *fid, *server, *farm, *secret;
-			
-			for(int k=0; k<[attr count]; k++){
-				NSDictionary *item = [attr objectAtIndex:k];
-				NSString *name = [item objectForKey:@"attributeName"];
-				NSString *body =  [item objectForKey:@"nodeContent"];
-				
-				if([name isEqualToString:@"id"]){
-					fid = body;
-				}else if([name isEqualToString:@"secret"]){
-					secret = body;
-				}else if([name isEqualToString:@"farm"]){
-					farm = body;
-				}else if([name isEqualToString:@"server"]){
-					server = body;
-				}
-			}
-            
-			// create async image view
-			AsyncImageView *ai = [[AsyncImageView alloc] initWithFrame:CGRectMake(basex, basey, w, w)];
-			[ai loadImage:[NSString stringWithFormat:@"http://farm%@.static.flickr.com/%@/%@_%@_s.jpg", farm, server, fid, secret]];
-			[thumbnailView addSubview:ai];
-		}
-	}
 }
-
 
 -(void)searchFlickrPhotos:(NSString *)text
 {

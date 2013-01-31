@@ -12,6 +12,6 @@
 @interface CollectionViewCell : UICollectionViewCell
 
 @property (nonatomic) UIImage *largeImage;
-@property (nonatomic) AsyncImageView *imageView;
+@property (nonatomic) UIImageView *imageView;
 @property (nonatomic) NSInteger index;
 @end
