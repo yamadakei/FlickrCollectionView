@@ -59,10 +59,6 @@ NSString *const FlickrAPIKey = @"8cd91e0edba8fa02b50c2eed388b9090";
     // Store incoming data into a string
 	NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
-//    NSLog(@"CALLING:%@", jsonString);
-    
-    NSLog(@"test");
-    
     // Create a dictionary from the JSON string
 	NSDictionary *results = [jsonString JSONValue];
 	
@@ -97,6 +93,44 @@ NSString *const FlickrAPIKey = @"8cd91e0edba8fa02b50c2eed388b9090";
     [self.activityIndicator stopAnimating];
 }
 
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection{
+	NSLog(@"connection connectionDidFinishLoading");
+	[self parseDidEnd:data];
+}
+
+- (void)parseDidEnd:(NSMutableData *)data{
+	NSArray *response = PerformXMLXPathQuery((NSData *)data, @"//rsp/photos/photo", nil);
+	
+	for(int i=0; i<[response count]; i++){
+		NSArray *attr = [[response objectAtIndex:i] objectForKey:@"nodeAttributeArray"];
+		if(attr){
+			NSString *fid, *server, *farm, *secret;
+			
+			for(int k=0; k<[attr count]; k++){
+				NSDictionary *item = [attr objectAtIndex:k];
+				NSString *name = [item objectForKey:@"attributeName"];
+				NSString *body =  [item objectForKey:@"nodeContent"];
+				
+				if([name isEqualToString:@"id"]){
+					fid = body;
+				}else if([name isEqualToString:@"secret"]){
+					secret = body;
+				}else if([name isEqualToString:@"farm"]){
+					farm = body;
+				}else if([name isEqualToString:@"server"]){
+					server = body;
+				}
+			}
+            
+			// create async image view
+			AsyncImageView *ai = [[AsyncImageView alloc] initWithFrame:CGRectMake(basex, basey, w, w)];
+			[ai loadImage:[NSString stringWithFormat:@"http://farm%@.static.flickr.com/%@/%@_%@_s.jpg", farm, server, fid, secret]];
+			[thumbnailView addSubview:ai];
+		}
+	}
+}
+
+
 -(void)searchFlickrPhotos:(NSString *)text
 {
     [self.activityIndicator startAnimating];
@@ -106,10 +140,11 @@ NSString *const FlickrAPIKey = @"8cd91e0edba8fa02b50c2eed388b9090";
     // Create NSURL string from formatted string, by calling the Flickr API
 	NSURL *url = [NSURL URLWithString:urlString];
     
-    NSLog(@"%@", url);
-    
     // Setup and start async download
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL: url];
+    NSURLRequest *request = [NSURLRequest
+                             requestWithURL:[NSURL URLWithString:url]
+                             cachePolicy:NSURLRequestUseProtocolCachePolicy
+                             timeoutInterval:30.0];
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
 }

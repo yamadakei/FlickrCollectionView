@@ -42,6 +42,8 @@
 		B2703D2516B939A500747122 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		B2703D2716B93C8B00747122 /* XPathQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
 		B2703D2816B93C8C00747122 /* XPathQuery.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
+		B2703D2D16B95D4D00747122 /* XmlBaseCtrl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XmlBaseCtrl.h; sourceTree = "<group>"; };
+		B2703D2E16B95D4D00747122 /* XmlBaseCtrl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XmlBaseCtrl.m; sourceTree = "<group>"; };
 		B2A8DF9B169D93E000AE2736 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
 		B2A8DF9C169D93E000AE2736 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
 		B2AAA0AC169EB94A00AB047D /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = FlickrCollectionView/opencv2.framework; sourceTree = "<group>"; };
@@ -131,6 +133,8 @@
 		B2B69F15169D4C5700580D61 /* FlickrCollectionView */ = {
 			isa = PBXGroup;
 			children = (
+				B2703D2D16B95D4D00747122 /* XmlBaseCtrl.h */,
+				B2703D2E16B95D4D00747122 /* XmlBaseCtrl.m */,
 				B2703D2716B93C8B00747122 /* XPathQuery.h */,
 				B2703D2816B93C8C00747122 /* XPathQuery.m */,
 				B2B69F52169D5CA600580D61 /* JSON */,

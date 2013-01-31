@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AsyncImageView.h"
 
 @interface CollectionViewCell : UICollectionViewCell
 
 @property (nonatomic) UIImage *largeImage;
-@property (nonatomic) UIImageView *imageView;
+@property (nonatomic) AsyncImageView *imageView;
 @property (nonatomic) NSInteger index;
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CollectionViewCell.h"
 #import "ImageViewController.h"
+#import "XmlBaseCtrl.h"
 
 @interface CollectionViewController : UICollectionViewController<UICollectionViewDataSource,UICollectionViewDelegate>
 {
